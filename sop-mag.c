@@ -34,14 +34,80 @@ typedef struct __attribute__((__packed__)) {
   char name[MAX_NAME_LENGTH+1];
 } login_message_t;
 
+
+typedef struct{
+  cast_message_t buff[MAX_QUEUE];
+  pthread_mutex_t mutex;
+  sem_t sem;
+  int head;
+  int tail;
+  int count;
+}queue_t;
 void usage(char *name) {
   printf("%s <in_port>\n", name);
   printf("  in_port - port that accepts messages\n");
   exit(EXIT_FAILURE);
 }
 
+void queue_init(queue_t *queue){
+  pthread_mutex_init(&queue->mutex, NULL);
+  sem_init(&queue->sem, 0,0);
+  queue->head=0;
+  queue->tail =0;
+  queue->count=0;
+
+}
+void queue_destroy(queue_t* queue){
+  sem_destroy(&queue->sem);
+  pthread_mutex_destroy(&queue->mutex);
+}
+cast_message_t queue_pop(queue_t* queue){
+  sem_wait(&queue->sem);
+  cast_message_t message;
+
+  pthread_mutex_lock(&queue->mutex);
+
+  message=queue->buff[queue->head];
+  queue->head=(queue->head+1)%MAX_QUEUE;
+  queue->count--;
+  pthread_mutex_unlock(&queue->mutex);
+  return message;
+
+}
+void queue_push(queue_t* queue, cast_message_t* message){
+  pthread_mutex_lock(&queue->mutex);
+  if(queue->count<MAX_QUEUE) {
+    memcpy(&queue->buff[queue->tail], message, sizeof(cast_message_t));
+    queue->tail=(queue->tail+1)%MAX_QUEUE;
+    queue->count++;
+    sem_post(&queue->sem);
+
+
+  }
+  pthread_mutex_unlock(&queue->mutex);
+}
+void* worker(void* args)
+{
+  queue_t *queue =  args;
+  while(1)
+  {
+    cast_message_t message=queue_pop(queue);
+    printf("[Cast] Someone casts %s onto %hu,%hu\n",
+             spell_names[message.spell], message.X, message.Y);
+  }
+}
 void doServer(int fd) {
 
+  queue_t queue;
+
+  queue_init(&queue);
+
+  pthread_t threads[THREAD_COUNT];
+  for(int i=0; i<THREAD_COUNT; i++)
+  {
+
+    if(pthread_create(&threads[i], NULL, worker, &queue)<0){ERR("pthread_create");}
+  }
   char buff[MAX_BUFF_LEN + 1];
   struct sockaddr_in addr;
   socklen_t addr_len;
@@ -80,13 +146,21 @@ void doServer(int fd) {
         printf("Value OUT OF RANGE\n");
         continue;
       }
-      printf("[Cast] Someone casts %s onto %hu,%hu\n",
-             spell_names[message->spell], message->X, message->Y);
+      //printf("[Cast] Someone casts %s onto %hu,%hu\n",
+      //       spell_names[message->spell], message->X, message->Y);
       count_message++;
+
+      queue_push(&queue,message);
     } else {
       printf("Incorrect message type\n");
     }
   }
+  for(int i=0; i<THREAD_COUNT; i++)
+  {
+
+    pthread_join(threads[i], NULL);
+  }
+  
 }
 int main(int argc, char **argv) {
   // printf("sizeof(struct packed) == %d\n", sizeof(struct packed));
