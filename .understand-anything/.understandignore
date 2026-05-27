@@ -1,0 +1,4 @@
+# .understandignore — patterns for files/dirs to exclude from analysis
+.cursor/
+.understand-anything/
+sop-mag

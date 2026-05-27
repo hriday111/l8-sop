@@ -1,0 +1,308 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "f850dd094eb9d54c95c3f1762a5b6f79a1ddf19c",
+  "generatedAt": "2026-05-25T22:04:29.325Z",
+  "files": {
+    "l8_common.h": {
+      "filePath": "l8_common.h",
+      "contentHash": "0a56e5ef5224258ba069aa58e7a1cc079c9639fada6976efa0e337e0ad0186a8",
+      "functions": [
+        {
+          "name": "ms_sleep",
+          "params": [
+            "milli"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "sethandler",
+          "params": [
+            "sigNo"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "make_socket",
+          "params": [
+            "domain",
+            "type"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "bind_inet_socket",
+          "params": [
+            "port",
+            "type",
+            "backlog"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "bulk_read",
+          "params": [
+            "fd",
+            "buf",
+            "count"
+          ],
+          "returnType": "ssize_t",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "bulk_write",
+          "params": [
+            "fd",
+            "buf",
+            "count"
+          ],
+          "returnType": "ssize_t",
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "arpa/inet.h",
+          "specifiers": [
+            "arpa/inet.h"
+          ]
+        },
+        {
+          "source": "assert.h",
+          "specifiers": [
+            "assert.h"
+          ]
+        },
+        {
+          "source": "ctype.h",
+          "specifiers": [
+            "ctype.h"
+          ]
+        },
+        {
+          "source": "errno.h",
+          "specifiers": [
+            "errno.h"
+          ]
+        },
+        {
+          "source": "fcntl.h",
+          "specifiers": [
+            "fcntl.h"
+          ]
+        },
+        {
+          "source": "netdb.h",
+          "specifiers": [
+            "netdb.h"
+          ]
+        },
+        {
+          "source": "netinet/in.h",
+          "specifiers": [
+            "netinet/in.h"
+          ]
+        },
+        {
+          "source": "pthread.h",
+          "specifiers": [
+            "pthread.h"
+          ]
+        },
+        {
+          "source": "semaphore.h",
+          "specifiers": [
+            "semaphore.h"
+          ]
+        },
+        {
+          "source": "signal.h",
+          "specifiers": [
+            "signal.h"
+          ]
+        },
+        {
+          "source": "stdbool.h",
+          "specifiers": [
+            "stdbool.h"
+          ]
+        },
+        {
+          "source": "stdio.h",
+          "specifiers": [
+            "stdio.h"
+          ]
+        },
+        {
+          "source": "stdlib.h",
+          "specifiers": [
+            "stdlib.h"
+          ]
+        },
+        {
+          "source": "string.h",
+          "specifiers": [
+            "string.h"
+          ]
+        },
+        {
+          "source": "sys/epoll.h",
+          "specifiers": [
+            "sys/epoll.h"
+          ]
+        },
+        {
+          "source": "sys/socket.h",
+          "specifiers": [
+            "sys/socket.h"
+          ]
+        },
+        {
+          "source": "sys/time.h",
+          "specifiers": [
+            "sys/time.h"
+          ]
+        },
+        {
+          "source": "sys/types.h",
+          "specifiers": [
+            "sys/types.h"
+          ]
+        },
+        {
+          "source": "sys/un.h",
+          "specifiers": [
+            "sys/un.h"
+          ]
+        },
+        {
+          "source": "unistd.h",
+          "specifiers": [
+            "unistd.h"
+          ]
+        }
+      ],
+      "exports": [
+        "ms_sleep",
+        "sethandler",
+        "make_socket",
+        "bind_inet_socket",
+        "bulk_read",
+        "bulk_write"
+      ],
+      "totalLines": 107,
+      "hasStructuralAnalysis": true
+    },
+    "Makefile": {
+      "filePath": "Makefile",
+      "contentHash": "4fb0f53d492e7be747101e115e2ee8140a89e0c9f4f7b48cd5a2cc2e0b8d5458",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "sop-mag.c": {
+      "filePath": "sop-mag.c",
+      "contentHash": "88ed51d8bef00a2c222cc68f34f562cd5dd1a99f6ac8009cfacbf5502a026127",
+      "functions": [
+        {
+          "name": "usage",
+          "params": [
+            "name"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "queue_init",
+          "params": [
+            "queue"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "queue_destroy",
+          "params": [
+            "queue"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "queue_pop",
+          "params": [
+            "queue"
+          ],
+          "returnType": "cast_message_t",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "queue_push",
+          "params": [
+            "queue",
+            "message"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "doServer",
+          "params": [
+            "fd"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 66
+        },
+        {
+          "name": "main",
+          "params": [
+            "argc",
+            "argv"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 16
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "l8_common.h",
+          "specifiers": [
+            "l8_common.h"
+          ]
+        }
+      ],
+      "exports": [
+        "usage",
+        "queue_init",
+        "queue_destroy",
+        "queue_pop",
+        "queue_push",
+        "doServer",
+        "main"
+      ],
+      "totalLines": 193,
+      "hasStructuralAnalysis": true
+    }
+  }
+}
