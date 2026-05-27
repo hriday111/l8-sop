@@ -1,1 +1,0 @@
-/home/hriday/.understand-anything/repo/understand-anything-plugin/agents/article-analyzer.md
